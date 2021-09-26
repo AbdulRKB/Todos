@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %} Edit {% endblock %}
+
+{% block body %}
+<h3>Edit Task: {{task.id}}</h3>
+<form action="/edit/{{task.id}}" method="POST" autocomplete="off">
+  <div class="mb-3">
+    <input type="text" class="form-control" name="todo" 
+    value="{{task.task}}" maxlength="60" required>
+    {{submit.csrf_token}}
+    {{submit.submit(class_="btn btn-dark mt-1")}}
+</form>
+{% endblock %}

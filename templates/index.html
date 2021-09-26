@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+{% if tasks|length > 0 %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Tasks</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for task in tasks %}
+    <tr>
+    	<th>{{task.id}}</th>
+    	<td>{{task.task}}</td>
+    	<td><a href="/del/{{task.id}}" class="btn btn-danger">Delete</a> <a href="/edit/{{task.id}}" class="btn btn-warning">Edit</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<center><h2>There are no tasks, please create one.</h2></center>
+{% endif %}
+<form action="/" method="POST" autocomplete="off">
+  <div class="mb-3">
+    <input type="text" class="form-control" name="todo" maxlength="60" placeholder="Enter new Task.." required>
+    {{submit.csrf_token}}
+    {{submit.submit(class_="btn btn-dark mt-1")}}
+  </div>
+</form>
+{% endblock %}
